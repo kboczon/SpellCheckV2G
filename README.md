@@ -1,5 +1,7 @@
 # SpellCheck Tray App — Windows Global Hotkey Utility
 
+[![WARN-LLM GENERATED](https://img.shields.io/badge/WARN-LLM%20GENERATED-FF6347)](https://github.com/40ants/ai-badges)
+
 A lightweight background utility that captures selected text (or clipboard fallback), sends it to an LLM for grammar/typo correction, and places the cleaned result back on your clipboard — optionally auto-pasting into the active window.
 
 ## Features
