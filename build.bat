@@ -50,7 +50,9 @@ echo Building standalone executable...
 pyinstaller --onefile ^
     --name "SpellCheck" ^
     --windowed ^
+    --icon "spellcheck.ico" ^
     --add-data "config.yaml;." ^
+    --add-data "spellcheck.ico;." ^
     main.py
 
 if %errorlevel% equ 0 (

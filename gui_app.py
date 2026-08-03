@@ -5,6 +5,7 @@ import logging
 import threading
 import os
 import sys
+from pathlib import Path
 
 log = logging.getLogger("spellcheck.gui")
 
@@ -58,6 +59,14 @@ class SpellCheckGUI:
         self._create_main_area()
         self._create_status_bar()
         
+        # Set window icon
+        icon_path = Path(__file__).parent / "spellcheck.ico"
+        if icon_path.exists():
+            try:
+                self.root.iconbitmap(str(icon_path))
+            except Exception:
+                pass
+
         # Bind events
         self.root.protocol("WM_DELETE_WINDOW", self.on_close)
         
@@ -353,13 +362,18 @@ class SpellCheckGUI:
     
     def _create_tray_icon(self):
         """Create system tray icon."""
-        from PIL import Image, ImageDraw
-        import io
-        
-        # Create simple icon programmatically
-        icon_image = Image.new('RGB', (64, 64), color=(70, 130, 180))
-        draw = ImageDraw.Draw(icon_image)
-        draw.text((20, 25), "SC", fill=(255, 255, 255))
+        from PIL import Image
+
+        # Load icon from file
+        icon_path = Path(__file__).parent / "spellcheck.ico"
+        if icon_path.exists():
+            icon_image = Image.open(icon_path)
+        else:
+            # Fallback: create simple icon programmatically
+            from PIL import ImageDraw
+            icon_image = Image.new('RGB', (64, 64), color=(70, 130, 180))
+            draw = ImageDraw.Draw(icon_image)
+            draw.text((20, 25), "SC", fill=(255, 255, 255))
         
         def show_window(icon, item):
             """Show main window when tray icon is clicked."""
